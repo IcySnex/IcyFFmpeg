@@ -1,0 +1,12 @@
+.vs/
+res/
+IcyFFmpeg/obj/
+IcyFFmpeg/bin/
+IcyFFmpeg.Sample/obj/
+IcyFFmpeg.Sample/bin/
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IcyFFmpeg", "IcyFFmpeg\IcyFFmpeg.csproj", "{952AE850-F7D1-4177-98E8-CCB01A878F5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IcyFFmpeg.Sample", "IcyFFmpeg.Sample\IcyFFmpeg.Sample.csproj", "{DABA4E35-0600-467A-870A-5267665BF84D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{952AE850-F7D1-4177-98E8-CCB01A878F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{952AE850-F7D1-4177-98E8-CCB01A878F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{952AE850-F7D1-4177-98E8-CCB01A878F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{952AE850-F7D1-4177-98E8-CCB01A878F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABA4E35-0600-467A-870A-5267665BF84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABA4E35-0600-467A-870A-5267665BF84D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABA4E35-0600-467A-870A-5267665BF84D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABA4E35-0600-467A-870A-5267665BF84D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CCAD218-1B1D-40B8-AA88-E32EAF4ADC98}
+	EndGlobalSection
+EndGlobal

@@ -5,17 +5,35 @@ namespace IcyFFmpeg.Types
 {
     public class Input
     {
-        public Enums.Input? Type { get; set; } = null;
-        public string File { get; set; } = null;
-        public Stream Stream { get; set; } = null;
+        /// <summary>
+        /// Input type for input media (do not change)
+        /// </summary>
+        public Enums.Input? Type { get; } = null;
+        /// <summary>
+        /// Local file for the input media
+        /// </summary>
+        public string File { get; } = null;
+        /// <summary>
+        /// Stream for the input media
+        /// </summary>
+        public Stream Stream { get; } = null;
 
-        public Input(string File, bool IgnoreFormat = false)
+        /// <summary>
+        /// Creates a new input media
+        /// </summary>
+        /// <param name="File">Local file for input media</param>
+        /// <param name="IgnoreExtention">Ignore the file extention</param>
+        public Input(string File, bool IgnoreExtention = false)
         {
             if (string.IsNullOrWhiteSpace(File) | !System.IO.File.Exists(File)) throw Exceptions.FileDoesNotExist(File);
-            if (!IgnoreFormat && string.IsNullOrWhiteSpace(Path.GetExtension(File)) | !Enums.GetVideoFormats.Contains(Path.GetExtension(File))) throw Exceptions.FormatNotSupported(Path.GetExtension(File));
+            if (!IgnoreExtention && string.IsNullOrWhiteSpace(Path.GetExtension(File)) | !Enums.GetVideoFormats.Contains(Path.GetExtension(File))) throw Exceptions.FormatNotSupported(Path.GetExtension(File));
             Type = Enums.Input.File;
             this.File = File;
         }
+        /// <summary>
+        /// Creates a new input media
+        /// </summary>
+        /// <param name="Stream">Stream for the input media</param>
         public Input(Stream Stream)
         {
             if (Stream == null) throw Exceptions.StreamIsNullOrEmpty; if (Stream.Length <= 0) throw Exceptions.StreamIsNullOrEmpty;
@@ -23,7 +41,16 @@ namespace IcyFFmpeg.Types
             this.Stream = Stream;
         }
 
-        public static Input FromFile(string File, bool IgnoreFormat = false) => new(File, IgnoreFormat);
-        public static Input FromStream(Stream Stream) => new(Stream);
+        /// <summary>
+        /// Creates a new input media
+        /// </summary>
+        /// <param name="File">Local file for input media</param>
+        /// <param name="IgnoreExtention">Ignore the file extention</param>
+        public static Input FromFile(string File, bool IgnoreExtention = false) => new(File, IgnoreExtention);
+        /// <summary>
+        /// Creates a new input media
+        /// </summary>
+        /// <param name="Stream">Stream for the input media</param>
+        public static Input FromStream(Stream Stream) => new(Stream); 
     }
 }

@@ -161,6 +161,7 @@ namespace IcyFFmpeg.Sample
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(800, 501);
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPage5
             // 

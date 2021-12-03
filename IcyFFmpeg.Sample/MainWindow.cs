@@ -22,8 +22,18 @@ namespace IcyFFmpeg.Sample
             comboBox1.SelectedIndex = 18;
             engine_hwac_cb.SelectedIndex = 0;
         }
+
         private void Window_ResizeBegin(object sender, EventArgs e) => SuspendLayout();
         private void Window_ResizeEnd(object sender, EventArgs e) => ResumeLayout(true);
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (ffmpegEngine == null)
+            {
+                MessageBox.Show($"Please first create a new FFMPEG-Engine before you start!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.Cancel = true;
+            }
+        }
         #endregion
 
         #region General
@@ -80,7 +90,7 @@ namespace IcyFFmpeg.Sample
             dl.Complete += (s, e) =>
             {
                 engine_download_pb.Value = engine_download_pb.Maximum;
-                MessageBox.Show($"FFmpeg Executable successfully downloaded!\n\nPath: \"{e.Path}\"\nVersion: {e.Version}", "Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"FFmpeg Executable successfully downloaded!\n\nPath: \"{e.Path}\"\nVersion: {e.Version}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             };
             dl.Error += (s, e) =>
             {
@@ -124,11 +134,11 @@ namespace IcyFFmpeg.Sample
         {
             if (!File.Exists(engine_exe_tb.Text))
             {
-                MessageBox.Show($"FFMPEG executable does not exist in selected path (\"{engine_exe_tb.Text}\")", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"FFMPEG executable does not exist in selected path (\"{engine_exe_tb.Text}\")!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             ffmpegEngine = new(engine_exe_tb.Text, engine_overwrite_cb.Checked, int.Parse(engine_threads_tb.Text), (Enums.HardwareAccelerate)engine_hwac_cb.SelectedIndex, engine_hide_cb.Checked);
-            MessageBox.Show($"FFMPEG-Engine created successfully\n\nExecutable: \"{engine_exe_tb.Text}\",\nOverwrite: {engine_overwrite_cb.Checked},\nThreads: {engine_threads_tb.Text},\nHardwareAccelerate: {engine_hwac_cb.Text},\nHide Banner: {engine_hide_cb.Checked}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"FFMPEG-Engine created successfully!\n\nExecutable: \"{engine_exe_tb.Text}\",\nOverwrite: {engine_overwrite_cb.Checked},\nThreads: {engine_threads_tb.Text},\nHardwareAccelerate: {engine_hwac_cb.Text},\nHide Banner: {engine_hide_cb.Checked}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
@@ -152,6 +162,5 @@ namespace IcyFFmpeg.Sample
         {
 
         }
-
     }
 }

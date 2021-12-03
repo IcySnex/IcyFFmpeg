@@ -32,22 +32,23 @@ namespace IcyFFmpeg.Sample
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.engine_exe_btn = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.engine_hide_cb = new System.Windows.Forms.CheckBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
-            this.textBox20 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.engine_threads_tb = new System.Windows.Forms.TextBox();
+            this.engine_overwrite_cb = new System.Windows.Forms.CheckBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.engine_exe_tb = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.engine_hwac_cb = new System.Windows.Forms.ComboBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.engine_download_pb = new System.Windows.Forms.ProgressBar();
             this.engine_download_cb = new System.Windows.Forms.ComboBox();
@@ -177,28 +178,40 @@ namespace IcyFFmpeg.Sample
             // 
             this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox9.Controls.Add(this.engine_exe_btn);
             this.groupBox9.Controls.Add(this.button3);
             this.groupBox9.Controls.Add(this.label30);
-            this.groupBox9.Controls.Add(this.checkBox2);
+            this.groupBox9.Controls.Add(this.engine_hide_cb);
             this.groupBox9.Controls.Add(this.label28);
             this.groupBox9.Controls.Add(this.label29);
             this.groupBox9.Controls.Add(this.label26);
             this.groupBox9.Controls.Add(this.label27);
             this.groupBox9.Controls.Add(this.label25);
             this.groupBox9.Controls.Add(this.label24);
-            this.groupBox9.Controls.Add(this.textBox20);
-            this.groupBox9.Controls.Add(this.checkBox1);
+            this.groupBox9.Controls.Add(this.engine_threads_tb);
+            this.groupBox9.Controls.Add(this.engine_overwrite_cb);
             this.groupBox9.Controls.Add(this.label21);
-            this.groupBox9.Controls.Add(this.textBox19);
+            this.groupBox9.Controls.Add(this.engine_exe_tb);
             this.groupBox9.Controls.Add(this.label22);
             this.groupBox9.Controls.Add(this.label23);
-            this.groupBox9.Controls.Add(this.comboBox3);
+            this.groupBox9.Controls.Add(this.engine_hwac_cb);
             this.groupBox9.Location = new System.Drawing.Point(10, 98);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(774, 209);
             this.groupBox9.TabIndex = 1;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Engine";
+            // 
+            // engine_exe_btn
+            // 
+            this.engine_exe_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.engine_exe_btn.Location = new System.Drawing.Point(481, 23);
+            this.engine_exe_btn.Name = "engine_exe_btn";
+            this.engine_exe_btn.Size = new System.Drawing.Size(96, 23);
+            this.engine_exe_btn.TabIndex = 16;
+            this.engine_exe_btn.Text = "Browse";
+            this.engine_exe_btn.UseVisualStyleBackColor = true;
+            this.engine_exe_btn.Click += new System.EventHandler(this.engine_exe_btn_Click);
             // 
             // button3
             // 
@@ -208,6 +221,7 @@ namespace IcyFFmpeg.Sample
             this.button3.TabIndex = 26;
             this.button3.Text = "CREATE";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.engine_create_Click);
             // 
             // label30
             // 
@@ -221,14 +235,16 @@ namespace IcyFFmpeg.Sample
             this.label30.TabIndex = 25;
             this.label30.Text = "? Local path to FFmpeg executable";
             // 
-            // checkBox2
+            // engine_hide_cb
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(89, 133);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 22;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.engine_hide_cb.AutoSize = true;
+            this.engine_hide_cb.Checked = true;
+            this.engine_hide_cb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.engine_hide_cb.Location = new System.Drawing.Point(89, 133);
+            this.engine_hide_cb.Name = "engine_hide_cb";
+            this.engine_hide_cb.Size = new System.Drawing.Size(15, 14);
+            this.engine_hide_cb.TabIndex = 22;
+            this.engine_hide_cb.UseVisualStyleBackColor = true;
             // 
             // label28
             // 
@@ -290,22 +306,24 @@ namespace IcyFFmpeg.Sample
             this.label24.TabIndex = 16;
             this.label24.Text = "Threads:";
             // 
-            // textBox20
+            // engine_threads_tb
             // 
-            this.textBox20.Location = new System.Drawing.Point(65, 73);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(64, 23);
-            this.textBox20.TabIndex = 17;
-            this.textBox20.Text = "0";
+            this.engine_threads_tb.Location = new System.Drawing.Point(65, 73);
+            this.engine_threads_tb.Name = "engine_threads_tb";
+            this.engine_threads_tb.Size = new System.Drawing.Size(64, 23);
+            this.engine_threads_tb.TabIndex = 17;
+            this.engine_threads_tb.Text = "0";
+            this.engine_threads_tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.engine_threads_tb_KeyPress);
+            this.engine_threads_tb.Leave += new System.EventHandler(this.engine_threads_tb_Leave);
             // 
-            // checkBox1
+            // engine_overwrite_cb
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(75, 53);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 13;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.engine_overwrite_cb.AutoSize = true;
+            this.engine_overwrite_cb.Location = new System.Drawing.Point(75, 53);
+            this.engine_overwrite_cb.Name = "engine_overwrite_cb";
+            this.engine_overwrite_cb.Size = new System.Drawing.Size(15, 14);
+            this.engine_overwrite_cb.TabIndex = 13;
+            this.engine_overwrite_cb.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
@@ -316,15 +334,16 @@ namespace IcyFFmpeg.Sample
             this.label21.TabIndex = 11;
             this.label21.Text = "Executable:";
             // 
-            // textBox19
+            // engine_exe_tb
             // 
-            this.textBox19.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.engine_exe_tb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox19.Location = new System.Drawing.Point(81, 22);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(496, 23);
-            this.textBox19.TabIndex = 12;
+            this.engine_exe_tb.Location = new System.Drawing.Point(81, 22);
+            this.engine_exe_tb.Name = "engine_exe_tb";
+            this.engine_exe_tb.Size = new System.Drawing.Size(394, 23);
+            this.engine_exe_tb.TabIndex = 12;
+            this.engine_exe_tb.Leave += new System.EventHandler(this.engine_exe_tb_Leave);
             // 
             // label22
             // 
@@ -346,20 +365,20 @@ namespace IcyFFmpeg.Sample
             this.label23.TabIndex = 15;
             this.label23.Text = "? Overwrites output file if it already exists else it throws";
             // 
-            // comboBox3
+            // engine_hwac_cb
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.engine_hwac_cb.FormattingEnabled = true;
+            this.engine_hwac_cb.Items.AddRange(new object[] {
             "None",
             "cuda",
             "cuvid",
             "dxva2",
             "qsv",
             "d3d11va"});
-            this.comboBox3.Location = new System.Drawing.Point(130, 102);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(97, 23);
-            this.comboBox3.TabIndex = 16;
+            this.engine_hwac_cb.Location = new System.Drawing.Point(130, 102);
+            this.engine_hwac_cb.Name = "engine_hwac_cb";
+            this.engine_hwac_cb.Size = new System.Drawing.Size(97, 23);
+            this.engine_hwac_cb.TabIndex = 16;
             // 
             // groupBox8
             // 
@@ -1278,21 +1297,22 @@ namespace IcyFFmpeg.Sample
         private System.Windows.Forms.TextBox engine_download_tb;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.TextBox engine_exe_tb;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox engine_overwrite_cb;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.TextBox engine_threads_tb;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ComboBox engine_hwac_cb;
+        private System.Windows.Forms.CheckBox engine_hide_cb;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button engine_exe_btn;
     }
 }
 

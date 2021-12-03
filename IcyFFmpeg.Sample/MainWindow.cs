@@ -4,6 +4,7 @@ using IcyFFmpeg.Types;
 using IcyFFmpeg.FFmpegDownloader;
 using FFmpeg.NET;
 using System.IO;
+using System.Reflection;
 
 namespace IcyFFmpeg.Sample
 {
@@ -15,17 +16,21 @@ namespace IcyFFmpeg.Sample
             InitializeComponent();
 
             engine_download_cb.SelectedIndex = 7;
-            engine_download_tb.Text = @$"{DesktopPath}\FFmpeg.exe";
+            engine_download_tb.Text = @$"{AppPath}\FFmpeg.exe";
+            engine_exe_tb.Text = @$"{AppPath}\FFmpeg.exe";
 
             comboBox1.SelectedIndex = 18;
-            comboBox3.SelectedIndex = 0;
+            engine_hwac_cb.SelectedIndex = 0;
         }
         private void Window_ResizeBegin(object sender, EventArgs e) => SuspendLayout();
         private void Window_ResizeEnd(object sender, EventArgs e) => ResumeLayout(true);
         #endregion
 
-        #region Helper Functions
+        #region General
         static string DesktopPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        static string AppPath { get; set; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        static Engine ffmpegEngine { get; set; }
+
         private bool IsValidFilename(string path)
         {
             if (string.IsNullOrEmpty(path)) return false;
@@ -45,7 +50,7 @@ namespace IcyFFmpeg.Sample
         #region Create Engine
 
         #region Download
-        string engine_download_tb_before { get; set; } = @$"{DesktopPath}\FFmpeg.exe";
+        string engine_download_tb_before { get; set; } = @$"{AppPath}\FFmpeg.exe";
         private void engine_download_tb_Leave(object sender, EventArgs e)
         {
             if (!IsValidFilename(engine_download_tb.Text))
@@ -85,6 +90,47 @@ namespace IcyFFmpeg.Sample
             await dl.Latest(os, engine_download_tb.Text);
         }
         #endregion
+        #region Create
+        string engine_exe_tb_before { get; set; } = @$"{AppPath}\FFmpeg.exe";
+        private void engine_exe_tb_Leave(object sender, EventArgs e)
+        {
+            if (!File.Exists(engine_exe_tb.Text))
+                engine_exe_tb.Text = engine_exe_tb_before;
+            else
+                engine_exe_tb_before = engine_exe_tb.Text;
+        }
+        private void engine_exe_btn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new() { Filter = "FFMPEG executable|*.exe", InitialDirectory = engine_exe_tb.Text, CheckFileExists = true };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                engine_exe_tb.Text = ofd.FileName;
+                engine_exe_tb_before = ofd.FileName;
+            }
+        }
+
+        private void engine_threads_tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((!char.IsDigit(e.KeyChar) || Convert.ToInt32(engine_threads_tb.Text + e.KeyChar) >= Environment.ProcessorCount + 1 || engine_threads_tb.Text == "0") && e.KeyChar != '\b') 
+                e.Handled = true;
+        }
+        private void engine_threads_tb_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(engine_threads_tb.Text))
+                engine_threads_tb.Text = "0";
+        }
+
+        private void engine_create_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(engine_exe_tb.Text))
+            {
+                MessageBox.Show($"FFMPEG executable does not exist in selected path (\"{engine_exe_tb.Text}\")", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ffmpegEngine = new(engine_exe_tb.Text, engine_overwrite_cb.Checked, int.Parse(engine_threads_tb.Text), (Enums.HardwareAccelerate)engine_hwac_cb.SelectedIndex, engine_hide_cb.Checked);
+            MessageBox.Show($"FFMPEG-Engine created successfully\n\nExecutable: \"{engine_exe_tb.Text}\",\nOverwrite: {engine_overwrite_cb.Checked},\nThreads: {engine_threads_tb.Text},\nHardwareAccelerate: {engine_hwac_cb.Text},\nHide Banner: {engine_hide_cb.Checked}", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        #endregion
 
         #endregion
 
@@ -106,5 +152,6 @@ namespace IcyFFmpeg.Sample
         {
 
         }
+
     }
 }
